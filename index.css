@@ -1,0 +1,76 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  border: 1px solid black;
+}
+.nav-items > ul {
+  list-style: none;
+  display: flex;
+}
+
+.nav-items > ul > li {
+  padding: 10px;
+}
+.card {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  width: 200px;
+}
+.card > img {
+  width: 100%;
+  height: auto;
+}
+.restaurent-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.shimmer-card {
+  animation: shimmer 1s 1ms 100 alternate-reverse ease-in-out;
+  width: 200px;
+  height: 200px;
+  background-color: lightgray;
+  padding: 10px;
+  display: flex;
+  margin: 10px;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+@keyframes shimmer {
+  0% {
+    background-color: lightgoldenrodyellow;
+  }
+  50% {
+    background-color: lightcoral;
+  }
+  100% {
+    background-color: lightgray;
+  }
+  
+}
+
+.shimmer-image {
+  animation: shimmer 1s 1ms 100 alternate-reverse ease-in;
+
+  width: 70%;
+  height: 60%;
+  background-color: aliceblue;
+  margin: 10px;
+}
+
+.shimmer-heading {
+  animation: shimmer 1s 1ms 100 alternate-reverse ease-in-out;
+
+  width: 70%;
+  height: 10%;
+  background-color: aliceblue;
+}
+
+.shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+}

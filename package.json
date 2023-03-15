@@ -1,0 +1,21 @@
+{
+  "name": "food-villla",
+  "version": "1.0.0",
+  "description": "This is food delivery app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "Gaurav Mehra",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.8.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.7.0"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
+  }
+}
