@@ -9,6 +9,7 @@ import About from "./components/About";
 import Error from "./components/Error";
 import Contact from "./components/Contact";
 import RestaurentMenu from "./components/RestaurentMenu";
+import Profile from "./components/ProfileClass"; 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -33,8 +34,14 @@ const AppRouter = createBrowserRouter([
       },
       {
         path : "/about",
-        element : <About />
-      },
+        element : <About />,
+        children :[
+          {
+            path: 'profile',
+            element: <Profile />
+          }
+        ]
+      }, 
       {
         path : "/contact",
         element : <Contact />  
@@ -49,7 +56,7 @@ const AppRouter = createBrowserRouter([
 ]
 
 ) 
-
+ 
 root.render(<RouterProvider router={AppRouter} />);
 
 // const Body = () => {
