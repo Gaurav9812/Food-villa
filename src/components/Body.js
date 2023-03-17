@@ -3,20 +3,18 @@ import { RestaurentList } from "../constants";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-function filterData(searchInput, restaurents) {
-  return restaurents.filter((restaurent) =>{
-  return restaurent?.data?.name?.toLowerCase().includes(searchInput.toLowerCase());
-    }  );
-}
+import { filterData } from "../utils/helper";
+import useOnline from "../utils/useOnline";
+
 
 const Body = () => {
   //This is how we create variable in React
   const [searchInput, setSearchInput] = useState("");
   const [allRestaurents, setAllRestaurents] = useState([]);
-  
+   
   const [filteredRestaurents, setFilteredRestaurents] = useState([]);
 
-  useEffect(()=>{
+  useEffect(()=>{ 
       getRestaurents();
   },[]);
 
@@ -26,6 +24,13 @@ const Body = () => {
     setAllRestaurents(data?.data?.cards[2].data?.data?.cards);
     setFilteredRestaurents(data?.data?.cards[2].data?.data?.cards);
   }
+
+  const online = useOnline();
+
+  if(!online) {
+    return <h1>offline, Please check your Internet Connection</h1>;
+  }
+
 
   //  Early Return
   if(!allRestaurents) return null;

@@ -20,7 +20,7 @@ class Profile extends React.Component {
         this.setState({userInfo:data})
 
     }
-
+ 
     componentDidUpdate(prevProps, prevState) {
         // if(this.state.userInfo != prevProps.userInfo) {}
         console.log("ComponentDidUpdate");

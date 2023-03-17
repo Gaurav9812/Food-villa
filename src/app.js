@@ -5,11 +5,24 @@ import Header, { Title } from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import About from "./components/About";
 import Error from "./components/Error";
 import Contact from "./components/Contact";
 import RestaurentMenu from "./components/RestaurentMenu";
 import Profile from "./components/ProfileClass"; 
+import { lazy , Suspense} from "react";
+import Shimmer from "./components/Shimmer";
+
+
+//Chuncking
+//Code Splitting
+//Dynamic Bundking
+//Lazy Loading
+//On Demand Loading
+//Dynamic Import
+
+const About = lazy(() => import('./components/About'));
+const Instamart = lazy(() =>  import("./components/Instamart")); 
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -34,7 +47,7 @@ const AppRouter = createBrowserRouter([
       },
       {
         path : "/about",
-        element : <About />,
+        element : <Suspense fallback={<h1>Loading....</h1>}> <About /></Suspense>,
         children :[
           {
             path: 'profile',
@@ -49,7 +62,11 @@ const AppRouter = createBrowserRouter([
       {
         path : "/restaurent/:resId",
         element : <RestaurentMenu />
-      }
+      },
+      {
+        path : "/instamart",
+        element : <Suspense fallback = {<Shimmer />}> <Instamart /> </Suspense>
+      },
     ]
   } ,
   
