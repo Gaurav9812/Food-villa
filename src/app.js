@@ -9,8 +9,9 @@ import Error from "./components/Error";
 import Contact from "./components/Contact";
 import RestaurentMenu from "./components/RestaurentMenu";
 import Profile from "./components/ProfileClass"; 
-import { lazy , Suspense} from "react";
+import { lazy , Suspense, useState} from "react";
 import Shimmer from "./components/Shimmer";
+import UserContext from "./utils/UserContext";
 
 
 //Chuncking
@@ -27,12 +28,19 @@ const Instamart = lazy(() =>  import("./components/Instamart"));
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const Layout = () => {
+  const [user, setUser] = useState({
+    name :"gaurav Mehra",
+    email:"gaurav@gmail.com",
+  });
   return (
-    <>
+    <UserContext.Provider value ={{
+      user:user,
+      setUser: setUser
+      }}>
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </UserContext.Provider> 
   );
 };
 const AppRouter = createBrowserRouter([

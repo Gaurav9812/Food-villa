@@ -1,18 +1,20 @@
 import RestaurentCard from "./RestaurentCard";
 import { RestaurentList } from "../constants";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/helper";
 import useOnline from "../utils/useOnline";
-
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   //This is how we create variable in React
   const [searchInput, setSearchInput] = useState("");
   const [allRestaurents, setAllRestaurents] = useState([]);
-   
-  const [filteredRestaurents, setFilteredRestaurents] = useState([]);
+   const [filteredRestaurents, setFilteredRestaurents] = useState([]);
+
+   const {user, setUser} = useContext(UserContext);  
+
 
   useEffect(()=>{ 
       getRestaurents();
@@ -58,7 +60,18 @@ const Body = () => {
           }}
         >
           Search
-        </button>
+        </button><input value={user.name} onChange ={(e)=>{
+            setUser({
+              ...user,
+              name: e.target.value,
+            })
+        }} />
+        <input value={user.email} onChange ={(e)=>{
+            setUser({
+              ...user,
+              email: e.target.value,
+            })
+        }} />
       </div>
       <div className="flex flex-wrap">
         {
