@@ -21,8 +21,9 @@ const Body = () => {
   async function getRestaurents(){
     let data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6862738&lng=77.2217831&page_type=DESKTOP_WEB_LISTING");
     data = await data.json();
-    setAllRestaurents(data?.data?.cards[2].data?.data?.cards);
-    setFilteredRestaurents(data?.data?.cards[2].data?.data?.cards);
+    let len = data.data.cards.length;
+    setAllRestaurents(data?.data?.cards[len-1].data?.data?.cards);
+    setFilteredRestaurents(data?.data?.cards[len-1].data?.data?.cards);
   }
 
   const online = useOnline();
@@ -31,24 +32,25 @@ const Body = () => {
     return <h1>offline, Please check your Internet Connection</h1>;
   }
 
-
+ 
   //  Early Return
   if(!allRestaurents) return null;
 
   return (allRestaurents.length === 0) ? <Shimmer /> : (
     <>
-      <div className="search-container">
+      <div className="search-container p-5 bg-pink-50 my-5">
         <input
           type="text"
           placeholder="Search"
           value={searchInput}
+          className = "p-2 m-3 focus:bg-gray-600"
           onChange={(e) => {
             setSearchInput(e.target.value);
           
           }}
         />
         <button
-          className="search-btn"
+          className="bg-pink-400 p-2 rounded-lg hover:bg-gray-400"
           onClick={() => {
             let data = filterData(searchInput, allRestaurents);
             console.log(data);
@@ -58,7 +60,7 @@ const Body = () => {
           Search
         </button>
       </div>
-      <div className="restaurent-list">
+      <div className="flex flex-wrap">
         {
         filteredRestaurents.length === 0 ? <h1>No restaurent matched your filter</h1> :
         filteredRestaurents.map((restaurent) => {
