@@ -12,9 +12,11 @@ import Profile from "./components/ProfileClass";
 import { lazy , Suspense, useState} from "react";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import store from "./utils/store";
 
 
-//Chuncking
+//Chuncking 
 //Code Splitting
 //Dynamic Bundking
 //Lazy Loading
@@ -33,6 +35,7 @@ const Layout = () => {
     email:"gaurav@gmail.com",
   });
   return (
+    <Provider store={store}>
     <UserContext.Provider value ={{
       user:user,
       setUser: setUser
@@ -41,6 +44,7 @@ const Layout = () => {
       <Outlet />
       <Footer />
     </UserContext.Provider> 
+    </Provider>
   );
 };
 const AppRouter = createBrowserRouter([
