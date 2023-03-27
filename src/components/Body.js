@@ -11,44 +11,46 @@ const Body = () => {
   //This is how we create variable in React
   const [searchInput, setSearchInput] = useState("");
   const [allRestaurents, setAllRestaurents] = useState([]);
-   const [filteredRestaurents, setFilteredRestaurents] = useState([]);
+  const [filteredRestaurents, setFilteredRestaurents] = useState([]);
 
-   const {user, setUser} = useContext(UserContext);  
+  const { user, setUser } = useContext(UserContext);
 
+  useEffect(() => {
+    getRestaurents();
+  }, []);
 
-  useEffect(()=>{ 
-      getRestaurents();
-  },[]);
-
-  async function getRestaurents(){
-    let data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6862738&lng=77.2217831&page_type=DESKTOP_WEB_LISTING");
+  async function getRestaurents() {
+    let data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6862738&lng=77.2217831&page_type=DESKTOP_WEB_LISTING"
+    );
     data = await data.json();
     let len = data.data.cards.length;
-    setAllRestaurents(data?.data?.cards[len-1].data?.data?.cards);
-    setFilteredRestaurents(data?.data?.cards[len-1].data?.data?.cards);
+    setAllRestaurents(data?.data?.cards[len - 1].data?.data?.cards);
+    setFilteredRestaurents(data?.data?.cards[len - 1].data?.data?.cards);
   }
 
   const online = useOnline();
 
-  if(!online) {
+  if (!online) {
     return <h1>offline, Please check your Internet Connection</h1>;
   }
 
- 
   //  Early Return
-  if(!allRestaurents) return null;
+  if (!allRestaurents) return null;
 
-  return (allRestaurents.length === 0) ? <Shimmer /> : (
+  return allRestaurents.length === 0 ? (
+    <Shimmer />
+  ) : (
     <>
       <div className="search-container p-5 bg-pink-50 my-5">
         <input
           type="text"
+          data-testid="search-btn"
           placeholder="Search"
           value={searchInput}
-          className = "p-2 m-3 focus:bg-gray-600"
+          className="p-2 m-3 focus:bg-gray-600"
           onChange={(e) => {
             setSearchInput(e.target.value);
-          
           }}
         />
         <button
@@ -60,27 +62,41 @@ const Body = () => {
           }}
         >
           Search
-        </button><input value={user.name} onChange ={(e)=>{
+        </button>
+        <input
+          value={user.name}
+          onChange={(e) => {
             setUser({
               ...user,
               name: e.target.value,
-            })
-        }} />
-        <input value={user.email} onChange ={(e)=>{
+            });
+          }}
+        />
+        <input
+          value={user.email}
+          onChange={(e) => {
             setUser({
               ...user,
               email: e.target.value,
-            })
-        }} />
+            });
+          }}
+        />
       </div>
       <div className="flex flex-wrap">
-        {
-        filteredRestaurents.length === 0 ? <h1>No restaurent matched your filter</h1> :
-        filteredRestaurents.map((restaurent) => {
-          return <Link to={"/restaurent/" + restaurent.data.id} key={restaurent.data.uuid}>
-            <RestaurentCard  {...restaurent.data} />
-            </Link>;
-        })}
+        {filteredRestaurents.length === 0 ? (
+          <h1>No restaurent matched your filter</h1>
+        ) : (
+          filteredRestaurents.map((restaurent) => {
+            return (
+              <Link
+                to={"/restaurent/" + restaurent.data.id}
+                key={restaurent.data.uuid}
+              >
+                <RestaurentCard {...restaurent.data} />
+              </Link>
+            );
+          })
+        )}
       </div>
     </>
   );

@@ -12,7 +12,7 @@ const useRestaurant = (resId) => {
        let data = await  fetch(restaurantMenuUrl+resId)
          data = await data.json();
          setRestaurent(data?.data);
-         console.log(data?.data?.cards[0]?.card);
+        //  console.log(data?.data?.cards[0]?.card);
          
     }
     return restaurent;
