@@ -37,8 +37,8 @@ const Body = () => {
 
   //  Early Return
   if (!allRestaurents) return null;
-
-  return allRestaurents.length === 0 ? (
+  console.log(allRestaurents.length);
+  return allRestaurents.length == 0 ? (
     <Shimmer />
   ) : (
     <>

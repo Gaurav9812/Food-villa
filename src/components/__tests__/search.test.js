@@ -23,5 +23,5 @@ test("shimmer on Home page", () => {
   const shimmer = body.findByTestId("shimmer");
   console.log(shimmer);
 
-  expect(shimmer.children.length).toBe(4);
+  expect(shimmer.children).toBe(4);
 });
